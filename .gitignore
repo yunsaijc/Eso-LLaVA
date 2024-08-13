@@ -1,3 +1,4 @@
 checkpoints/
-data/
 wandb/
+eval/results/
+*/__pycache__/
