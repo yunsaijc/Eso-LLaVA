@@ -14,7 +14,7 @@ PATH_INDEX = "endo/precancer"
 LESSION_TYPE_LABELS = ["no_lesions", "precancerous_lesions"]
 
 # USER_PROMPT = "<image>\nThe picture is an endocopy medical image of the esophagus. Outline the potential lession area with 4 coordinates(Each represents the percentage distance between the four vertices of the area and the left and top edges of the image), and answer which is the most possible label of this image: [no lesions, precancerous lesions]"
-USER_PROMPT = "<image>\nThe picture is an endocopy medical image of the esophagus. Answer from the perspective of esophagus, which is the most possible label of this image: [no_lesions, precancerous_lesions]"
+USER_PROMPT = "<image>\nThe picture is an endocopy medical image of the esophagus. Answer from the perspective of esophagus, which is the most possible label of this image: [no lesions, precancerous lesions]"
 # ASSISTANT_RESPONSE = "Area: {}.\nLabel: {}."
 ASSISTANT_RESPONSE = "Label: {}."
 
@@ -170,37 +170,3 @@ if __name__ == '__main__':
     # # print("Mean SSIM:", sum(SIM_list)/len(SIM_list))
     with open("/home/jc/workspace/MedLLMs/Eso-Llava/data/scripts/endo/SSIM_list.txt", 'w') as f:
         f.write(str(SIM_list)+'\n')
-
-# def get_blue_box_coordinates(image_path):
-#     # 读取图片
-#     image = cv2.imread(image_path)
-#     if image is None: raise ValueError("Image not found or unable to read")
-    
-#     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)    # 转换为HSV颜色空间，便于颜色检测
-#     lower_blue = np.array([100, 50, 50])            # 定义蓝色的HSV范围
-#     upper_blue = np.array([130, 255, 255])
-#     mask = cv2.inRange(hsv, lower_blue, upper_blue) # 创建蓝色掩码
-
-#     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE) # 查找轮廓
-#     if not contours: 
-#         # raise ValueError("No blue contours found.")
-#         print(">>> Error: No blue contours found in this image.")
-#         return None
-#     largest_contour = max(contours, key=cv2.contourArea)  # 找到最大的轮廓（假设它是蓝色方框）
-
-#     epsilon = 0.02 * cv2.arcLength(largest_contour, True) # 获取轮廓的四个顶点
-#     approx = cv2.approxPolyDP(largest_contour, epsilon, True)
-
-#     if len(approx) != 4:    # 确保轮廓有4个顶点
-#         print(">>> Error: This image's contour does not have exactly 4 vertices.")
-#         return None
-#         # raise ValueError("The contour does not have exactly 4 vertices.")
-#     # 将顶点转换为百分比坐标
-#     height, width = image.shape[:2]
-#     points_percent = []
-#     for point in approx:
-#         x, y = point[0]
-#         x_percent = round((x / width) * 100, 2)
-#         y_percent = round((y / height) * 100, 2)
-#         points_percent.append((float(x_percent), float(y_percent)))
-#     return points_percent

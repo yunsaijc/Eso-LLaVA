@@ -4,15 +4,16 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from shapely.geometry import Polygon
 
 def parse_prediction(prediction):
-    print("prediction:", prediction)
+    # print("prediction:", prediction)
     try: label = prediction.split(":")[1].strip().lower()
     except: label = 'no_lesions'
+    if 'pre' in label: label = 'precancerous_lesions.'
     return label
 
 
 def main():
-    date = "240813"
-    version = "e1.epoch20"
+    date = "240818"
+    version = "e2.epoch3"
     # base_model = "llava-med-v1.5-mistral-7b"
     base_model = "llava-v1.6-vicuna-13b"
     # base_model = "llava-v1.6-mistral-7b"

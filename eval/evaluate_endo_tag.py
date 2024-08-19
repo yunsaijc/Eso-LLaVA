@@ -38,17 +38,18 @@ def evaluate(model_path, data_path, result_path, args):
         result = {
             'answer': answer,
             'target': data['conversations'][1]['value'],
+            'image': data['image']
         }
 
         print(">>> ", i)
-        print("Question:", data['conversations'][0]['value'])
+        print("Question:", data['conversations'][0]['value'].split('\n')[1])
         print("Answer:", answer)
         results.append(result)
     with open(result_path, 'w') as f:
         json.dump(results, f, ensure_ascii=False)
 
 
-date = "240813"
+date = "240818"
 version = "e2.epoch3"
 # base_model = "llava-med-v1.5-mistral-7b"
 base_model = "llava-v1.6-vicuna-13b"
@@ -59,6 +60,6 @@ os.makedirs(grounded_image_path, exist_ok=True)
 if __name__ == '__main__':
     DATA_INDEX = "endo/precancer"
     model_path = f"/date/jc/models/MedLLMs/LLaVA-Med/merged/{date}{version}-lora-{base_model}-merged"
-    data_path = f"/date/jc/data/Eso-Llava/processed_data/{DATA_INDEX}/v4/test.json"
+    data_path = f"/date/jc/data/Eso-Llava/processed_data/{DATA_INDEX}/v8/test.json"
     result_path = f"/home/jc/workspace/MedLLMs/Eso-Llava/eval/results/{date}{version}-lora-{base_model}-merged-test.json"
     evaluate(model_path, data_path, result_path, args)

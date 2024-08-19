@@ -2,3 +2,4 @@ checkpoints/
 wandb/
 eval/results/
 */__pycache__/
+sft.log
